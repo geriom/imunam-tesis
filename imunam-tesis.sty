@@ -1,0 +1,217 @@
+\NeedsTeXFormat{LaTeX2e}[25/08/2014 Geri Ochoa]
+\ProvidesPackage{imunam-tesis}
+
+\RequirePackage{xcolor}
+\definecolor{orounam}{HTML}{CC9933}
+\definecolor{azulunam}{HTML}{13406F}
+\newcommand{\enlaces}{
+   \PassOptionsToPackage{draft}{hyperref}
+ }
+
+\DeclareOption{enlaces}{
+  \renewcommand{\enlaces}{
+    \PassOptionsToPackage{
+        colorlinks=true,
+        linkcolor=azulunam,
+        urlcolor=orounam,
+        pdftitle=Tesis UNAM,
+        pdfauthor=Gerino,
+        bookmarks=true,
+        bookmarksopen=true,
+      }{hyperref}
+  }
+}
+\ProcessOptions\relax
+
+\enlaces
+\RequirePackage{hyperref}
+
+\RequirePackage{import}
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{xstring}
+\RequirePackage{graphicx}
+\RequirePackage[spanish]{todonotes}
+\RequirePackage{fancyhdr}
+\RequirePackage{geometry}
+
+\RequirePackage{imakeidx}
+\makeindex
+
+% Encabezado y pie de paginas personalizados
+\fancypagestyle{principal}{
+    \fancyhf{}
+    \fancyhead[LO]{\scriptsize \leftmark}
+    \fancyhead[RE]{\scriptsize \rightmark}
+    \fancyfoot[LE,RO]{\scriptsize \thepage}
+    \fancyfoot[LO,RE]{\includegraphics[height=4ex]{img/IM_gris.pdf}}
+}
+
+% Página de dedicatoria
+\newcommand{\dedicatoria}[1]{%
+  \topskip0pt
+  \vspace*{\fill}
+  \begin{flushright}
+    \textit{#1}
+  \end{flushright}
+  \vspace*{\fill}
+
+  \cleardoublepage%
+}
+
+
+% Estilos para teoremas, corolarios, lemas y pruebas
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{corolario}[teorema]{Corolario}
+\newtheorem{lema}[teorema]{Lema}
+\newenvironment{prueba}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+
+\newcommand{\caja}[1]{\begin{center} \vspace{\abovedisplayskip} \mbox{#1}
+  \vspace{\abovedisplayskip} \end{center}}
+
+\theoremstyle{definition}
+\newtheorem{definicion}[teorema]{Definición}
+\theoremstyle{remark}
+\newtheorem{ejemplo}{Ejemplo}[teorema]
+\newtheorem{observacion}[teorema]{Observación}
+
+\newcommand{\pendiente}[1]{\textbf{\textcolor{red}{PENDIENTE: (#1)}}} 
+\newcommand{\figurapendiente}{\missingfigure} 
+\newcommand{\importante}[1]
+{\IfSubStr{#1}{!}
+  {\index{#1}\emph{\textbf{\StrBefore{#1}{!}~\StrBehind{#1}{!}}}\kern-1pt}
+  {\index{#1}\emph{\textbf{#1}}\index{#1}\kern-1pt}
+}
+
+\newcommand\restr[2]{{ % we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+}}
+
+\newcommand{\mb}{\mathbb}
+\newcommand{\sing}{\mathrm{Sing\,}}
+\newcommand{\mcd}{\mathrm{MCD}}
+\newcommand{\bif}{\mathrm{Bif\,}}
+
+\def\thickhrule{\leavevmode \leaders \hrule height 1.5pt \hfill \kern \z@}
+\def\position{\centering}
+%% Note the difference between the commands this one is 
+%% make and the other one is makes
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \position \reset@font
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        {\color{gray!30!}\thickhrule}
+        \par\nobreak
+        \vspace*{2\p@}%
+        {\raggedleft \huge \scshape \textcolor{gray!60!}{\thechapter}~ #1\par\nobreak}
+        \par\nobreak
+        \vspace*{2\p@}%
+        {\color{gray!30!}\thickhrule}
+    \vskip 40\p@
+    \vskip 50\p@
+  }}
+
+%% This uses makes
+
+\def\@makeschapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \position \reset@font
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        {\color{gray!30!}\thickhrule}
+        \par\nobreak
+        \vspace*{2\p@}%
+        {\raggedleft \huge \scshape #1\par\nobreak}
+        \par\nobreak
+        \vspace*{2\p@}%
+        {\color{gray!30!}\thickhrule}
+    \vskip 50\p@
+  }}
+
+
+
+\def\eltitutlo{}
+\def\elnombre{}
+\def\eldirector{}
+\def\lainstitucion{}
+\def\lafecha{}
+
+\define@key{alumnoinfo}{nombre}{\def\elnombre{#1}}
+\define@key{alumnoinfo}{grado}{\def\elgrado{#1}}
+
+\define@key{tutorinfo}{nombre}{\def\eldirector{#1}}
+\define@key{tutorinfo}{institucion}{\def\lainstitucion{#1}}
+
+\define@key{tesisinfo}{titulo}{\def\eltitulo{#1}}
+\define@key{tesisinfo}{fecha}{\def\lafecha{#1}}
+
+\newcommand{\alumno}[1]{\setkeys{alumnoinfo}{#1}}
+\newcommand{\tesis}[1]{\setkeys{tesisinfo}{#1}}
+\newcommand{\director}[1]{\setkeys{tutorinfo}{#1}}
+
+\renewcommand{\titlepage}{
+    \newgeometry{textwidth=14cm}
+    \pagestyle{empty}
+  {
+    \centering
+    \includegraphics[width=2.5cm]{img/unamlogo.png}
+
+    \vspace{\stretch{.2}}
+
+    \noindent
+      \textbf{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}
+
+      \noindent
+      PROGRAMA DE MAESTRÍA Y DOCTORADO EN CIENCIAS MATEMÁTICAS Y DE LA
+      ESPECIALIZACIÓN EN ESTADÍSTICA APLICADA
+
+      \vspace{\stretch{.2}}
+        
+      \noindent
+      \MakeUppercase{\eltitulo}
+
+      \vspace{\stretch{.2}}
+
+      \noindent
+      TESIS\\
+      QUE PARA OPTAR POR EL GRADO DE:\\
+      \MakeUppercase{\elgrado}
+
+      \vspace{\stretch{.2}}
+
+      \noindent
+      PRESENTA:\\
+      \MakeUppercase{\elnombre}
+      
+      \vspace{\stretch{.2}}
+
+      \noindent
+      DIRECTOR DE LA TESIS:\\
+      \MakeUppercase{\eldirector} \\
+      \MakeUppercase{\lainstitucion}
+
+      \vspace{\stretch{.2}}
+
+      \noindent
+      MÉXICO, D.F.~\MakeUppercase{\lafecha}
+
+      \vspace{0.5pt}
+  }
+
+    \cleardoublepage
+    \pagestyle{principal}
+}

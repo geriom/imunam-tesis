@@ -1,0 +1,41 @@
+\usepackage[subpreambles=false]{standalone}
+\usepackage[spanish, mexico]{babel}
+\usepackage{mathpazo} %Fuente principal
+\usepackage{eulervm} %Fuente en el entorno matemático
+\usepackage{mathtools} % Para las flechas de inclusión 
+
+\usepackage{float}
+
+% commando necesario para generar los índices
+\makeindex
+
+% Paquete para hace gráficas
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11} 
+
+% Paquete para incluir dos subfiguras en una misma figura
+\usepackage{subcaption}
+
+% Configura tikz para los diagramas
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\tikzset{
+commutative diagrams/.cd,
+arrow style=tikz,
+diagrams={>=stealth}}
+
+% Compila la bibliografia con biblatex
+\usepackage[
+  style=ieee,
+  backend=biber,
+  sorting=ynt
+]{biblatex}
+
+\addbibresource{bibliografia.bib}
+
+\graphicspath{{imagenes/}{../imagenes/}}
+
+% Usa romanos en las listas enumeradas
+\renewcommand{\labelenumi}{\roman{enumi}}

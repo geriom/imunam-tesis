@@ -1,0 +1,19 @@
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+
+\tikzset{
+commutative diagrams/.cd,
+arrow style=tikz,
+diagrams={>=stealth}}
+
+\begin{document}
+\begin{tikzcd}
+G_0 \ar{r}{i_{1*}} \ar{d}{i_{2*}} 
+    & G_1 \ar{d}{j_{1*}} \ar[bend left]{rdd}{\psi_1} \\
+G_2 \ar{r}{j_{2*}} \ar[bend right]{drr}[swap]{\psi_2}
+    & G \ar[dashed]{dr}{\lambda}\\
+    & & H
+\end{tikzcd}
+\end{document}
