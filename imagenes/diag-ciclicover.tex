@@ -1,0 +1,17 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\tikzset{
+commutative diagrams/.cd,
+arrow style=tikz,
+diagrams={>=stealth}}
+\usepackage{amssymb}
+
+\begin{document}
+\begin{tikzcd}
+\widetilde{M}^n \ar{r}{p} \ar{d}[swap]{i}
+    & M^n \ar{d}{f}\\
+\mathbb{R} \ar{r}[swap]{p'}
+    & \mathbb{S}^1
+\end{tikzcd}
+\end{document}

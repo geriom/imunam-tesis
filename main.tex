@@ -1,0 +1,61 @@
+\documentclass[11pt, twoside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{imunam-tesis}
+\input{preamble.tex}
+
+% Datos necesarios para la portada
+\alumno{
+  nombre = {Fulano de Tal},
+  grado = {Maestro en Ciencias Matemáticas}
+}
+
+\director{
+  nombre = {Mengano Pérez},
+  institucion = {Instituto de Matemáticas}
+}
+
+\tesis{
+  titulo = {Titulo del trabajo de Tesis},
+  fecha = {11 de junio de 2017}
+}
+
+\begin{document}
+\frontmatter
+\titlepage
+\clearpage
+
+\dedicatoria{Dedicado a alguien, poner aquí, o una frase pegajosa o algo}
+
+% Cosas antes del índice
+\import{./}{agradecimientos}
+\import{./}{introduccion}
+
+%Índice
+\thispagestyle{empty}
+\tableofcontents
+
+%Empieza el cuerpo de la tesis
+\mainmatter
+
+% Conviene escribir cada capitulo en un archivo distinto, \standalone permite
+% que cada capítulo se puede compilar por separado para revisar errores
+\import{./}{chapter1}
+\import{./}{chapter2}
+
+\clearpage
+%A partir de aquí se reinicia la enumeración de teoremas para insertar el
+%apéndice
+\appendix
+\input{apendice1}
+
+\backmatter
+
+%Agrega la bibliografía
+\clearpage
+\printbibliography[title={Bibliografía}]
+
+% Imprime el índice analítico
+\clearpage
+\printindex 
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+
+\pgfplotsset{
+    contour/every contour label/.style={
+    transform shape,
+    font=\footnotesize,
+    inner sep=1pt,
+    every node/.style={black,fill=white},
+    /pgf/number format/relative*={\pgfplotspointmetarangeexponent},
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}
+[
+    view={0}{90},
+    ticks=none
+]
+\addplot3[
+    contour gnuplot={levels={-4, -8, -12, 4, 8, 12},% 
+                    draw color = black,%
+                    },
+    samples = 50,
+    domain = -5:5,
+]
+{x^2*y-x};
+
+\addplot3[
+    contour gnuplot={levels={0},% 
+                    draw color = black,%
+                    },
+    dashed,
+    samples = 100,
+]
+{x^2*y-x};
+\end{axis}
+\end{tikzpicture}
+\end{document}
